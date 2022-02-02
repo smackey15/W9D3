@@ -93,12 +93,30 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-class FollowToggle {  
+class FollowToggle {
   contructor(el) {
     this.userId = el['data-user-id'];
-    this.followState = el['data-initial-follow-state']; 
-    this.el = $(el) // 'store a jQuery wrapped el as an instance variable'
+    this.followState = el['data-initial-follow-state'];
+    this.el = $(el); // 'store a jQuery wrapped el as an instance variable'
+    this.render();  // test later
 
+  }
+
+  render() {
+    if (this.followState === "unfollowed") {
+      $('<button class="follow-toggle">Follow!</li>');
+    } else {
+      $('<button class="follow-toggle">Unfollow!</li>');
+    }
+  }
+
+  handleClick() {
+    // e.prevent def
+    $.ajax({
+      method: 'POST',
+      url: '/users/:id/follow',
+      data: { id: `${current_user.id}` }  // 
+    })
   }
 
 }
@@ -120,7 +138,7 @@ module.exports = FollowToggle;
 const FollowToggle = __webpack_require__(/*! ./follow_toggle */ "./frontend/follow_toggle.js");
 
 // document.addEventListener("DOMContentLoaded"), () => {
-//     let el = document.querySelectorAll('class="follow-toggle"');
+//     let el = document.querySelector('class="follow-toggle"');
 //     const followToggle = new FollowToggle(el);
 //     $("button.follow-toggle").each(function (index) { // if index is 1st el and DOM is 2nd el have we captured DOM?
 //          followToggle();
