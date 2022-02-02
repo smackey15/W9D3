@@ -6,7 +6,6 @@ class FollowToggle {
 
   }
 
-
 }
 
 module.exports = FollowToggle;

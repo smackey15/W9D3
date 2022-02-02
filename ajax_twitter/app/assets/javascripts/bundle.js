@@ -86,22 +86,27 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./frontend sync recursive":
-/*!***********************!*\
-  !*** ./frontend sync ***!
-  \***********************/
+/***/ "./frontend/follow_toggle.js":
+/*!***********************************!*\
+  !*** ./frontend/follow_toggle.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function webpackEmptyContext(req) {
-	var e = new Error("Cannot find module '" + req + "'");
-	e.code = 'MODULE_NOT_FOUND';
-	throw e;
+class FollowToggle {  
+  contructor(el) {
+    this.userId = el['data-user-id'];
+    this.followState = el['data-initial-follow-state']; 
+    this.el = $(el) // 'store a jQuery wrapped el as an instance variable'
+
+  }
+
 }
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = "./frontend sync recursive";
+
+module.exports = FollowToggle;
+
+
+// let el = document.querySelectorAll('class="follow-toggle"');
 
 /***/ }),
 
@@ -112,7 +117,22 @@ webpackEmptyContext.id = "./frontend sync recursive";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./frontend sync recursive")
+const FollowToggle = __webpack_require__(/*! ./follow_toggle */ "./frontend/follow_toggle.js");
+
+// document.addEventListener("DOMContentLoaded"), () => {
+//     let el = document.querySelectorAll('class="follow-toggle"');
+//     const followToggle = new FollowToggle(el);
+//     $("button.follow-toggle").each(function (index) { // if index is 1st el and DOM is 2nd el have we captured DOM?
+//          followToggle();
+//     })
+// }
+
+$(function () {
+    $("button.follow-toggle").each(function (index, ele) { // if index is 1st el and DOM is 2nd el have we captured DOM?
+        return new FollowToggle(ele)
+    })
+    window.FollowToggle = FollowToggle;
+})
 
 /***/ })
 
